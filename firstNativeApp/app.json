@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Blank Template",
-    "slug": "first-native-app",
+    "slug": "firstNativeApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
