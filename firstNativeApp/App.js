@@ -27,7 +27,7 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <Button title="Add New Goal" onPress={() => setIsAddMode(true)} visible={!isAddMode} />
+      <Button title="Add New Goal" onPress={() => setIsAddMode(true)} visible={!isAddMode} style={styles.goalAdd}/>
       <GoalInput visible={isAddMode} onAddGoal={addGoalHandler} onCancel={cancelGoalHandler}/>
       <FlatList 
         data={courseGoals} 
@@ -48,4 +48,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  goalAdd: {
+    margin: 5,
+    padding: 5,
+  }
 });
