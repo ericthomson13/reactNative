@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -17,6 +17,15 @@ const randomNum = (min, max, exclude) => {
 
 const GameScreen = (props) => {
   const [currentGuess, setCurrentGuess] = useState(randomNum(1, 100, props.userChoice));
+  
+  const nextGuessHandler = (direction) => {
+    if ( 
+      (direction === 'lower' && currentGuess < props.userChoice) 
+      || (direction === 'greater' && currentGuess > props.userChoice)
+    ) {
+      Alert.alert(`Don't lie`);
+    }
+  };
 
   return (
     <View style={styles.screen}>
@@ -24,8 +33,8 @@ const GameScreen = (props) => {
         Opponent's Guess
         <NumberContainer>{currentGuess}</NumberContainer>
         <Card style={styles.buttonContainer} >
-          <Button title="LOWER" onPress={() => {}} />
-          <Button title="GREATER" onPress={() => {}} />
+          <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
+          <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'greater')} />
         </Card>
       </Text>
 
