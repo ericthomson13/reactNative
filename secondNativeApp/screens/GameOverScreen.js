@@ -16,9 +16,12 @@ const GameOverScreen = ({ roundsNumber, userNumber, onRestart }) => {
           resizeMethod="scale"
         />
       </View>
-      <BodyText>
-        Your phone needed <Text style={styles.hightlight}>{roundsNumber}</Text> rounds to guess the number <Text style={styles.hightlight}>{userNumber}</Text>.
-      </BodyText>
+      <View style={styles.resultContainer}>
+        <BodyText styles={style.resultText}>
+          Your phone needed <Text style={styles.hightlight}>{roundsNumber}</Text> rounds to guess the number <Text style={styles.hightlight}>{userNumber}</Text>.
+        </BodyText>
+      </View>
+      
       <Button title="NEW GAME" onPress={onRestart}/>
     </View>
   );
@@ -45,7 +48,14 @@ const styles = StyleSheet.create({
   },
   hightlight: {
     color: Colors.primary,
-  }
+    fontFamily: 'open-sans-bold',
+  },
+  resultContainer: {
+    marginHorizontal: 30,
+  },
+  resultText: {
+    textAlign: 'center',
+  },
 });
 
 export default GameOverScreen;
