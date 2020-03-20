@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, } from 'react-native';
+import { View, StyleSheet, Image, Text, } from 'react-native';
 
 import BodyText from '../components/BodyText';
 import TitleText from '../components/TitleText';
@@ -19,8 +19,8 @@ const GameOverScreen = ({ roundsNumber, userNumber, onRestart }) => {
         />
       </View>
       <View style={styles.resultContainer}>
-        <BodyText styles={style.resultText}>
-          Your phone needed <Text style={styles.hightlight}>{roundsNumber}</Text> rounds to guess the number <Text style={styles.hightlight}>{userNumber}</Text>.
+        <BodyText style={styles.resultText}>
+          Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text> rounds to guess the number <Text style={styles.highlight}>{userNumber}</Text>.
         </BodyText>
       </View>
       
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginVertical: 30, 
   },
-  hightlight: {
+  highlight: {
     color: Colors.primary,
     fontFamily: 'open-sans-bold',
   },
