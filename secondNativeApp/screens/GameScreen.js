@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import MainButton from '../components/MainButton';
+import ListItem from '../components/ListItem';
 
 import DefaultStyles from '../constants/default-styles';
 
@@ -30,7 +31,7 @@ const GameScreen = ({ userChoice, onGameOver, }) => {
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(pastGuesses.length);
     }
   }, [currentGuess, userChoice, onGameOver ]);
 
@@ -45,7 +46,7 @@ const GameScreen = ({ userChoice, onGameOver, }) => {
     if (direction === 'lower') {
       currentHigh.current = currentGuess;
     } else {
-      currentLow.current = currentGuess;
+      currentLow.current = currentGuess + 1;
     }
     const nextNum = randomNum(currentLow.current, currentHigh.current, currentGuess);
     setCurrentGuess(nextNum);
@@ -62,15 +63,14 @@ const GameScreen = ({ userChoice, onGameOver, }) => {
         <MainButton onPress={nextGuessHandler.bind(this, 'lower')}><Ionicons name="md-remove" size={24} color="white" /></MainButton>
         <MainButton onPress={nextGuessHandler.bind(this, 'greater')}><Ionicons name="md-add" size={24} color="white" /></MainButton>
       </Card>
-      <ScrollView>
-        {pastGuesses.map((guess) => (
-          <View>
-            <Text>
-              {guess}
-            </Text>
-          </View>
-        ))}
-      </ScrollView>
+      <View style={styles.list}>
+        <ScrollView>
+          {pastGuesses.map((guess, i) => (
+            <ListItem guess={guess} numOfRound={pastGuesses.length - i}/>
+          ))}
+        </ScrollView>
+      </View>
+      
     </View>
   )
 };
@@ -87,6 +87,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 400,
     maxWidth: '90%',
+  },
+  list: {
+    width: '80%',
+    flex: 1,
   }
 });
 
