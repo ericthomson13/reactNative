@@ -31,8 +31,10 @@ const GameScreen = ({ userChoice, onGameOver, }) => {
   const initialGuess = randomNum(1, 100, userChoice)
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [pastGuesses, setPastGuesses] = useState([initialGuess]);
+  const [deviceWidth, setDeviceWidth] = useState(Dimensions.get('window').width);
+  const [deviceHeight, setDeviceHeight] = useState(Dimensions.get('window').height);
 
-
+ 
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
@@ -41,6 +43,17 @@ const GameScreen = ({ userChoice, onGameOver, }) => {
       onGameOver(pastGuesses.length);
     }
   }, [currentGuess, userChoice, onGameOver ]);
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setDeviceHeight(Dimensions.get('window').height);
+      setDeviceWidth(Dimensions.get('window').width);
+    }
+    Dimensions.addEventListener('change', updateLayout);
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    }
+  })
 
   const nextGuessHandler = (direction) => {
     if ( 
@@ -60,6 +73,28 @@ const GameScreen = ({ userChoice, onGameOver, }) => {
     setPastGuesses(curPastGuesses => [nextNum, ...curPastGuesses]);
   };
 
+  if (deviceHeight< 500) {
+    return (
+      <View style={styles.screen}>
+        <Text style={DefaultStyles.title}>
+          Opponent's Guess
+        </Text>
+        <View style={styles.controls}>
+          <MainButton onPress={nextGuessHandler.bind(this, 'lower')}><Ionicons name="md-remove" size={24} color="white" /></MainButton>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <MainButton onPress={nextGuessHandler.bind(this, 'greater')}><Ionicons name="md-add" size={24} color="white" /></MainButton>
+        </View>
+        <View style={styles.listContainer}>
+          <ScrollView contentContainerStyle={styles.list}>
+            {pastGuesses.map((guess, i) => (
+              <ListItem guess={guess} numOfRound={pastGuesses.length - i}/>
+            ))}
+          </ScrollView>
+        </View>
+        
+      </View>
+    );
+  }
   return (
     <View style={styles.screen}>
       <Text style={DefaultStyles.title}>
@@ -79,7 +114,7 @@ const GameScreen = ({ userChoice, onGameOver, }) => {
       </View>
       
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -94,6 +129,12 @@ const styles = StyleSheet.create({
     marginTop: Dimensions.get('window').height > 600 ? 20 : 5,
     width: 400,
     maxWidth: '90%',
+  },
+  controls: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
+    alignItems: 'center',
   },
   listContainer: {
     width: Dimensions.get('window').width > 350 ? '60%' : '80%',
