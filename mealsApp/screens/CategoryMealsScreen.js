@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, } from 'react-native';
 
-const CategoriesMealsScreen = (props) => {
+const CategoriesMealsScreen = ({ navigation, }) => {
 
   return (
     <View style={styles.screen} >
@@ -10,11 +10,11 @@ const CategoriesMealsScreen = (props) => {
       </Text>
       <Button 
         title="Go to Details" 
-        onPress={() => props.navigation.navigate({ routeName: 'MealDetail'})} 
+        onPress={() => navigation.navigate({ routeName: 'MealDetail'})} 
       />
       <Button 
         title="Go Back" 
-        onPress={() => props.navigation.goBack()} 
+        onPress={() => navigation.goBack()} 
       />
     </View>
   )

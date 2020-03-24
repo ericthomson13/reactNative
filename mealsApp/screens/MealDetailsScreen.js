@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, } from 'react-native';
 
-const CategoriesScreen = (props) => {
+const CategoriesScreen = ({ navigation, }) => {
 
   return (
     <View style={styles.screen} >
@@ -10,7 +10,7 @@ const CategoriesScreen = (props) => {
       </Text>
       <Button 
         title="Go Back to Categories"
-        onPress={() => props.navigation.popToTop()}
+        onPress={() => navigation.popToTop()}
       />
     </View>
   )
