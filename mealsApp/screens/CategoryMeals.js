@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
 
-const CategoriesScreen = (props) => {
+const CategoriesMeals = (props) => {
 
   return (
     <View style={styles.screen} >
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CategoriesScreen;
+export default CategoriesMeals;
