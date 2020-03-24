@@ -4,7 +4,7 @@ import { createStackNavigator, } from 'react-navigation-stack';
 // import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
-import CategoryMealsScreen from '../screens/CategoryMeals';
+import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailsScreens from '../screens/MealDetailsScreen';
 
 const MealsNavigator = createStackNavigator({
