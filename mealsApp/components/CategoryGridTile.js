@@ -1,20 +1,15 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet, } from 'react-native';
 
-const CategoryGridTile = (itemData) => {
+const CategoryGridTile = ({ title, onSelect, }) => {
   return (
     <TouchableOpacity 
-      onPress={() => navigation.navigate({ 
-        routeName: 'CategoryMeals', 
-        params: {
-          categoryId: itemData.item.id,
-        }, 
-      })}
+      onPress={onSelect}
       style={styles.gridItem}
     >
       <View >
         <Text>
-          {itemData.item.title}
+          {title}
         </Text>
       </View>
     </TouchableOpacity> 
