@@ -2,8 +2,13 @@ import React, { useState, } from 'react';
 import { StyleSheet, } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+// import { useScreens } from 'react-native-screens';
 
 import MealsNavigator from './navigation/MealsNavigator';
+
+// below was in course but ERROR: not an export from react-native-screens
+  // this should be more performant if works
+// useScreens();
 
 const fetchFonts = () => {
   return Font.loadAsync({
