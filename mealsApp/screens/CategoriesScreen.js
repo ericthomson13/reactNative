@@ -16,6 +16,7 @@ const CategoriesScreen = ({ navigation, }) => {
         }, 
         })
       }
+      color={itemData.item.color}
     />
   );
   return (
