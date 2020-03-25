@@ -1,7 +1,7 @@
-export default class Meal {
+class Meal {
   constructor (
     id, 
-    categoryId, 
+    categoryIds, 
     title, 
     affordability, 
     complexity, 
@@ -15,7 +15,7 @@ export default class Meal {
     isLactoseFree
   ) {
     this.id = id;
-    this.categoryId = categoryId;
+    this.categoryIds = categoryIds;
     this.title = title;
     this.affordability = affordability;
     this.complexity = complexity;
@@ -29,4 +29,5 @@ export default class Meal {
     this.isVegan = isVegan;
     this.isLactoseFree = isLactoseFree;
   }
-}
+};
+export default Meal;
