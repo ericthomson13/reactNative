@@ -1,19 +1,29 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, } from 'react-native';
 
-const CategoriesScreen = ({ navigation, }) => {
+import { MEALS, } from '../data/dummy-data';
+
+const MealDetailsScreen = ({ navigation, }) => {
+  const mealId = navigation.getParam('mealId');
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   return (
     <View style={styles.screen} >
-      <Text>
-        Meal Detail Screen
-      </Text>
+      <Text>{selectedMeal.title}</Text>
       <Button 
         title="Go Back to Categories"
         onPress={() => navigation.popToTop()}
       />
     </View>
   )
+};
+
+MealDetailsScreen.navigationOptions = (navigationData) => {
+  const mealId = navigationData.navigation.getParam('mealId');
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  return {
+    headerTitle: selectedMeal.title,
+  }
 };
 
 const styles = StyleSheet.create({
@@ -25,4 +35,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CategoriesScreen;
+export default MealDetailsScreen;

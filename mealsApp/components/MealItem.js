@@ -8,29 +8,26 @@ const MealItem = ({
   complexity,
   affordability,
   imageUrl,
-}) => {
-
-  return (
-    <View style={styles.mealItem}>
-      <TouchableOpacity onPress={onSelectMeal}>
-        <View>
-        <ImageBackground source={{ uri: imageUrl, }}>
-          <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
-              <View style={styles.titleContainer} >
-                <Text style={styles.title} numberOfLines={1} >{title}</Text> 
-              </View>
-          </View>
-        </ImageBackground>
-          <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-            <Text>{duration}</Text>
-            <Text>{complexity.toUpperCase()}</Text>
-            <Text>{affordability.toUpperCase()}</Text>
-          </View>
+}) => (
+  <View style={styles.mealItem}>
+    <TouchableOpacity onPress={onSelectMeal}>
+      <View>
+      <ImageBackground source={{ uri: imageUrl, }}>
+        <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
+            <View style={styles.titleContainer} >
+              <Text style={styles.title} numberOfLines={1} >{title}</Text> 
+            </View>
         </View>
-      </TouchableOpacity>
-    </View>
-  )
-};
+      </ImageBackground>
+        <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
+          <Text>{duration}</Text>
+          <Text>{complexity.toUpperCase()}</Text>
+          <Text>{affordability.toUpperCase()}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  </View>
+);
 
 const styles = StyleSheet.create({
   mealItem: {
