@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, } from 'react';
-import { View, Text, StyleSheet, Switch, Platform, } from 'react-native';
+import { View, Text, StyleSheet, } from 'react-native';
 
 import { HeaderButtons, Item, } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton';
@@ -19,7 +19,6 @@ const FiltersScreen = ({ navigation, }) => {
       vegetarian: isVegetarian,
     };
     console.log(appliedFilters);
-
   }, [isGlutenFree, isLactoseFree, isVegetarian, isVegan]);
 
   useEffect(() => {
