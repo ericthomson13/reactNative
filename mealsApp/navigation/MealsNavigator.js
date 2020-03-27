@@ -11,7 +11,7 @@ import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailsScreens from '../screens/MealDetailsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
-import FiltersScreen from '../screens/FavoritesScreen';
+import FiltersScreen from '../screens/FiltersScreen';
 
 import colors from '../constants/colors';
 
