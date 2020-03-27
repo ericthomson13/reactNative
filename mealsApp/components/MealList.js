@@ -4,7 +4,6 @@ import { FlatList, StyleSheet, View, } from 'react-native';
 import MealItem from './MealItem';
 
 const MealList = ({ listData, navigation, }) => {
-
   const renderMealItem = (itemData) => {
     const { title, duration, affordability, complexity, imageUrl, id, } = itemData.item;
     return (
@@ -14,6 +13,7 @@ const MealList = ({ listData, navigation, }) => {
           routeName: 'MealDetail', 
           params: {
             mealId: id,
+            mealTitle: title,
           } 
         })}
         duration={duration}
