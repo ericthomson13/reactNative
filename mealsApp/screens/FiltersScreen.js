@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
 
-const FiltersScreen = (props) => {
+import { HeaderButtons, Item, } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../components/CustomHeaderButton';
+
+const FiltersScreen = ({ navigation, }) => {
 
   return (
     <View style={styles.screen} >
@@ -11,6 +14,19 @@ const FiltersScreen = (props) => {
     </View>
   )
 };
+
+FiltersScreen.navigationOptions = (navData) => ({
+  headerTitle: 'Filters',
+  headerLeft: (
+    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+      <Item 
+        title="menu"
+        iconName="ios-menu"
+        onPress={() => {navData.navigation.toggleDrawer()}}
+      />
+    </HeaderButtons>
+  ),
+});
 
 const styles = StyleSheet.create({
   screen: {
