@@ -1,5 +1,6 @@
 
 export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
+export const SET_FILTERS = 'SET_FILTERS';
 
 export const toggleFavorite = (mealId) => {
   return {
@@ -7,3 +8,10 @@ export const toggleFavorite = (mealId) => {
     payload: mealId,
   };
 };
+
+export const setFilters = (filterSettings) => {
+  return {
+    type: SET_FILTERS,
+    payload: filterSettings,
+  }
+}
