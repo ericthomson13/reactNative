@@ -1,5 +1,12 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, TouchableNativeFeedback, Platform, } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  TouchableNativeFeedback,
+  Platform,
+} from 'react-native';
 
 
 const CategoryGridTile = ({ title, onSelect, color, }) => {
@@ -31,7 +38,7 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 10,
     elevation: 5,
-    overflow: 'hidden',
+    overflow: (Platform.OS === 'android' && Platform.Version >= 21) || Platform.OS === 'web' ? 'hidden' : 'visible',
   },
   container: {
     flex: 1,
@@ -43,7 +50,6 @@ const styles = StyleSheet.create({
     padding: 15,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-
   },
   title: {
     fontFamily: 'open-sans-bold',
