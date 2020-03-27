@@ -7,6 +7,12 @@ import DefaultText from '../components/DefaultText';
 
 import { MEALS, } from '../data/dummy-data';
 
+const ListItem = ({ children, }) => (
+  <View style={styles.listItem}>
+    <DefaultText>{children}</DefaultText>
+  </View>
+);
+
 const MealDetailsScreen = ({ navigation, }) => {
   const mealId = navigation.getParam('mealId');
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
@@ -20,11 +26,14 @@ const MealDetailsScreen = ({ navigation, }) => {
         <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
       </View>
       <Text style={styles.title}>Ingredients</Text>
-      <Text>List of Ingredients</Text>
+      {selectedMeal.ingredients.map((i) => (
+        <ListItem key={i} >{i}</ListItem>
+      ))}
       <Text style={styles.title}>Steps</Text>
-      <Text>List of Steps</Text>
+      {selectedMeal.steps.map((step) => (
+        <ListItem key={step} >{step}</ListItem>
+      ))}
     </ScrollView>
-    
   )
 };
 
@@ -51,6 +60,19 @@ const styles = StyleSheet.create({
     padding: 15,
     justifyContent: 'space-around',
   },
+  title: {
+    fontFamily: 'open-sans-bold',
+    fontSize: 22,
+    textAlign: 'center',
+  },
+  listItem: {
+    marginVertical: 10,
+    marginHorizontal: 20,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+  }
 });
 
 export default MealDetailsScreen;
