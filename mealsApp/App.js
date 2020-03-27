@@ -34,7 +34,9 @@ export default function App() {
   }
   
   return (
-    <Provider store={store} ><MealsNavigator /></Provider>
+    <Provider store={store} >
+      <MealsNavigator />
+    </Provider>
   );
 }
 
