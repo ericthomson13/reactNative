@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
 
-const FavoritesScreen = (props) => {
+const FavoritesScreen = ({ navigation, }) => {
 
   return (
     <View style={styles.screen} >
@@ -10,6 +10,10 @@ const FavoritesScreen = (props) => {
       </Text>
     </View>
   )
+};
+
+FavoritesScreen.navigationOptions = {
+  headerTitle: 'Your Favorites',
 };
 
 const styles = StyleSheet.create({
