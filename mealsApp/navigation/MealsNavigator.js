@@ -4,13 +4,13 @@ import { createStackNavigator, } from 'react-navigation-stack';
 import { createBottomTabNavigator, } from 'react-navigation-tabs';
 // import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Ionicons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator, } from 'react-navigation-material-bottom-tabs';
+import { Platform, } from 'react-native';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailsScreens from '../screens/MealDetailsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
-
-import { Platform } from 'react-native';
 
 import colors from '../constants/colors';
 
@@ -32,7 +32,7 @@ const MealsNavigator = createStackNavigator({
   }
 });
 
-const MealsFavTabNavigator = createBottomTabNavigator({
+const tabScreenConfig = {
   Meals: {
     screen: MealsNavigator,
     navigationOptions: {
@@ -49,7 +49,13 @@ const MealsFavTabNavigator = createBottomTabNavigator({
       }
     }
   },
-}, {
+};
+
+const MealsFavTabNavigator = Platform.OS === 'android' ? createMaterialBottomTabNavigator(tabScreenConfig, {
+  activeTintColor: colors.accentColor,
+  shifting: true,
+})
+: createBottomTabNavigator(tabScreenConfig, {
   tabBarOptions: {
     activeTintColor: colors.accentColor,
   }
