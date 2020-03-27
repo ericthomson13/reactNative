@@ -18,6 +18,8 @@ const FiltersScreen = ({ navigation, }) => {
       vegan: isVegan,
       vegetarian: isVegetarian,
     };
+    console.log(appliedFilters);
+
   }, [isGlutenFree, isLactoseFree, isVegetarian, isVegan]);
 
   useEffect(() => {
@@ -67,7 +69,7 @@ FiltersScreen.navigationOptions = (navData) => ({
       <Item 
         title="Save"
         iconName="ios-save"
-        onPress={() => {console.log('saving the filters woohoo')}}
+        onPress={navData.navigation.getParam('save')}
       />
     </HeaderButtons>
   ),
