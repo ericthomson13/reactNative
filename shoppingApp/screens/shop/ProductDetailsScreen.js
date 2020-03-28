@@ -8,10 +8,14 @@ const ProductDetailsScreen = ({ navigation, }) => {
 
   return (
     <View>
-      <Text>{selectedProduct}</Text>
+      <Text>{selectedProduct.title}</Text>
     </View>
   );
 };
+
+ProductDetailsScreen.navigationOptions = (navData) => ({
+  headerTitle: navData.navigation.getParam('productTitle')
+});
 
 const styles = StyleSheet.create({
 
