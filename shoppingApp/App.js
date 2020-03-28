@@ -1,15 +1,19 @@
-import React, { useState, useCallback, } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, } from 'react';
+import { StyleSheet, } from 'react-native';
 import { combineReducers, createStore, } from 'redux';
 import { Provider, } from 'react-redux';
 import { AppLoading, } from 'expo';
 import * as Font from 'expo-font';
+// below should be removed before deployment ** for dev only ** gets invoked as second arg in createStore
+import { composeWithDevTools, } from 'redux-devtools-extension';
 
 import productsReducer from './store/reducers/products';
 import ShopNavigator from './navigation/ShopNavigator';
+import cartReducer from './store/reducers/cart';
 
 const rootReducer = combineReducers({
   products: productsReducer,
+  carts: cartReducer,
 });
 
 const store = createStore(rootReducer);
