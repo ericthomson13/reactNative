@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, Button, StyleSheet, } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Colors } from '../../constants/Colors';
+import Colors from '../../constants/Colors';
 
 const CartScreen = (props) => {
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   amount: {
-    color: Colors.accentColor
+    color: Colors.primary,
   },
 });
 
