@@ -3,7 +3,7 @@ import CartItem from '../../models/cart-item';
 
 const initialState = {
   items: {},
-  total: 0,
+  totalAmount: 0,
 };
 
 const cartReducer = (state = initialState, { type, payload, }) => {
@@ -27,7 +27,7 @@ const cartReducer = (state = initialState, { type, payload, }) => {
             ...state.items,
             [addedProduct.id]: updatedCartItem,
           },
-          total: state.total + productPrice,
+          totalAmount: state.totalAmount + productPrice,
         }
       } else {
         const newCartItem = new CartItem(1, productPrice, productTitle, productPrice);
@@ -37,7 +37,7 @@ const cartReducer = (state = initialState, { type, payload, }) => {
             ...state.items,
             [addedProduct.id]: newCartItem,
           },
-          total: state.total + productPrice,
+          totalAmount: state.totalAmount + productPrice,
         }
       }
     default:
