@@ -1,8 +1,13 @@
+import PRODUCTS from '../../data/dummy-data';
+
+
 const initialState = {
-  availableProducts: [],
-  userProducts: [],
+  availableProducts: PRODUCTS,
+  userProducts: PRODUCTS.filter((prod) => prod.ownerId === 'u1'),
 };
 
-export const productsReducer = (state = initialState, { type, payload, }) => {
-
+const productsReducer = (state = initialState, { type, payload, }) => {
+  return state;
 };
+
+export default productsReducer;
