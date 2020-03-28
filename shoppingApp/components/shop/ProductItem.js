@@ -24,21 +24,23 @@ const ProductItem = ({
     TouchableCmp = TouchableNativeFeedback;
   }
   return (
-    <TouchableCmp onPress={onViewDetail}>
       <View style={styles.product}>
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: imageUrl, }} style={styles.image} />
+        <View style={styles.touchable}>
+          <TouchableCmp onPress={onViewDetail} useForeground>
+            <View style={styles.imageContainer}>
+              <Image source={{ uri: imageUrl, }} style={styles.image} />
+            </View>
+            <View style={styles.details}>
+              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.price}>${price.toFixed(2)}</Text>
+            </View>
+            <View style={styles.actions}>
+              <Button title="VIEW DETAILS" onPress={onViewDetail} color={Colors.primary}/>
+              <Button title="ADD TO CART" onPress={onAddToCart} color={Colors.primary}/>
+            </View>
+          </TouchableCmp>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.price}>${price.toFixed(2)}</Text>
-        </View>
-        <View style={styles.actions}>
-          <Button title="VIEW DETAILS" onPress={onViewDetail} color={Colors.primary}/>
-          <Button title="ADD TO CART" onPress={onAddToCart} color={Colors.primary}/>
-        </View>
-      </View>
-    </TouchableCmp>
+      </View> 
   );
 };
 
@@ -56,6 +58,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: 300,
     margin: 20,
+  },
+  touchable: {
+    borderRadius: 10,
+    overflow: 'hidden',
+    flex: 1,
   },
   imageContainer: {
     width: '100%',
