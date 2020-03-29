@@ -4,13 +4,13 @@ These are practice apps built for a Udemy course on React-Native.
 
 It contains several different applications built throughout the course.
 
-These applications were built to optimally run on iOS or Android but will also work on web via the web.
+These applications were built to optimally run on iOS or Android but will also work on web.
 
-##### Running Applications in Emulators for iOS and Android:
+### Running Applications in Emulators for iOS and Android:
   To be able to run any of these applications on iOS you must have a Mac, XCode and the iOS Simulator.  To set up an iOS simulator follow the instructions [here](https://www.macinstruct.com/node/494)
   To run the application on Android you will need [AndroidStudio](https://developer.android.com/studio) installed and have to have an Android device configured.  Instructions for how to create a virtual Android device can be found [here](https://developer.android.com/studio/run/managing-avds).
 
-### To Be Able to Run Any of the 4 Applications
+### If You Want to Run Any of the Applications:
 
 If you'd like to run any of the 4 applications within this repository you must first have both the [Expo-CLI](https://expo.io/learn) and [NodeJS](https://nodejs.org/en/download/) installed.
 
@@ -35,7 +35,7 @@ expo start
 
 Once the Metro-Bundler has launched you can compile the application for whichever devices you would like to run.  If running emulators for iOS or Android and the app does not launch on the emulator you may have to install the Expo app onto the emulator through the AppStore or GooglePlay Store.
 
-### App Descriptions
+### App Descriptions:
 
 1. Course Goals App
   This is a riff on a CRUDy To-Do app. Used as a basic introduction to React-Native.  This introduced basic concepts of React Native including styling, React Native components, and setting up and running multiple emulators.
