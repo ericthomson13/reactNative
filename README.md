@@ -4,7 +4,7 @@ These are practice apps built for a Udemy course on React-Native.
 
 It contains several different applications built throughout the course.
 
-These applications were built to optimally run on iOS or Android but will also work on web via the web build in the Metro-Bundler.
+These applications were built to optimally run on iOS or Android but will also work on web via the web.
 
 ##### Running Applications in Emulators for iOS and Android:
   To be able to run any of these applications on iOS you must have a Mac, XCode and the iOS Simulator.  To set up an iOS simulator follow the instructions [here](https://www.macinstruct.com/node/494)
