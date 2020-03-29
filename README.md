@@ -7,8 +7,8 @@ It contains several different applications built throughout the course.
 These applications were built to optimally run on iOS or Android but will also work on web.
 
 ### Running Applications in Emulators for iOS and Android:
-  To be able to run any of these applications on iOS you must have a Mac, XCode and the iOS Simulator.  To set up an iOS simulator follow the instructions [here](https://www.macinstruct.com/node/494)
-  To run the application on Android you will need [AndroidStudio](https://developer.android.com/studio) installed and have to have an Android device configured.  Instructions for how to create a virtual Android device can be found [here](https://developer.android.com/studio/run/managing-avds).
+To be able to run any of these applications on iOS you must have a Mac, XCode and the iOS Simulator.  To set up an iOS simulator follow the instructions [here](https://www.macinstruct.com/node/494)
+To run the application on Android you will need [AndroidStudio](https://developer.android.com/studio) installed and have to have an Android device configured.  Instructions for how to create a virtual Android device can be found [here](https://developer.android.com/studio/run/managing-avds).
 
 ### If You Want to Run Any of the Applications:
 
@@ -37,15 +37,19 @@ Once the Metro-Bundler has launched you can compile the application for whicheve
 
 ### App Descriptions:
 
-1. Course Goals App
+1. Course Goals App  
+
   This is a riff on a CRUDy To-Do app. Used as a basic introduction to React-Native.  This introduced basic concepts of React Native including styling, React Native components, and setting up and running multiple emulators.
 
-2. Number Guesser Game App
+2. Number Guesser Game App  
+
   This app allows for the user to select a number and then tells the computer whether it is higher or lower than the selected number.
 
-3. Meals App
+3. Meals App  
+
   This app allows you to select different recipes. It allows the user to select favorites and filter recipes by dietary preferences.
   The technologies that were familiarized were React Navigation (stack, tabs, and drawers), Redux with hooks, adding custom fonts, and useCallback hook.
 
-4. Shopping App
+4. Shopping App  
+
   This app allows you to navigate a small retail store, add and remove items from a shopping cart.  The technologies that were familiarized were handling and validating user input, adding database and http server requests, and user auth.
