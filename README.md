@@ -7,7 +7,9 @@ It contains several different applications built throughout the course.
 These applications were built to optimally run on iOS or Android but will also work on web.
 
 ### Running Applications in Emulators for iOS and Android:
-To be able to run any of these applications on iOS you must have a Mac, XCode and the iOS Simulator.  To set up an iOS simulator follow the instructions [here](https://www.macinstruct.com/node/494)
+
+To be able to run any of these applications in an iOS emulator you must have a Mac, XCode and the iOS Simulator.  To set up an iOS simulator follow the instructions [here](https://www.macinstruct.com/node/494)
+
 To run the application on Android you will need [AndroidStudio](https://developer.android.com/studio) installed and have to have an Android device configured.  Instructions for how to create a virtual Android device can be found [here](https://developer.android.com/studio/run/managing-avds).
 
 ### If You Want to Run Any of the Applications:
