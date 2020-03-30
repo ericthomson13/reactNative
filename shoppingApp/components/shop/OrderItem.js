@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Button, } from 'react-native';
 
 import CartItem from './CartItem';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Colors from '../../constants/Colors';
 
 const OrderItem = ({ amount, date, }) => {
 

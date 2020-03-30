@@ -13,7 +13,7 @@ const OrdersScreen = (props) => {
     <FlatList 
       data={orders} 
       renderItem={(itemData) => (
-        <OrderItem amount={itemData.item.totalAmount} date='error with date function' />
+        <OrderItem amount={itemData.item.totalAmount} date={itemData.item.readableDate} />
       )}
     />
   );
