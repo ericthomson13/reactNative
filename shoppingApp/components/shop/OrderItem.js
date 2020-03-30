@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     height: 300,
     margin: 20,
     padding: 10,
+    alignItems: 'center',
   },
   summary: {
     flexDirection: 'row',
