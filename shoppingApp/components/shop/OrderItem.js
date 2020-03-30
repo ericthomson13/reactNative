@@ -13,11 +13,16 @@ const OrderItem = ({ amount, date, items, }) => {
         <Text style={styles.total}>${amount.toFixed(2)}</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
-      <Button title='show details' onPress={() => {setShowDetails((prev) => !prev)}} color={Colors.primary} />
+      <Button
+        title={showDetails ? 'hide details' : 'show details'}
+        onPress={() => {setShowDetails((prev) => !prev)}}
+        color={Colors.primary}
+      />
       {showDetails && 
-        <View>
+        <View style={styles.detailItems}>
           {items.map((item) => (
-            <CartItem 
+            <CartItem
+              key={item.productId}
               quantity={item.quantity}
               title={item.productTitle}
               amount={item.sum}
@@ -61,6 +66,9 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans',
     fontSize: 16,
     color: '#888',
+  },
+  detailItems: {
+    width: '100%',
   }
 });
 
