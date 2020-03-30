@@ -31,9 +31,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: 300,
     margin: 20,
+    padding: 10,
   },
   summary: {
-
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  total: {
+    fontSize: 16,
+    fontFamily: 'open-sans-bold',
+  },
+  date: {
+    fontFamily: 'open-sans',
+    fontSize: 16,
+    color: '#888',
   }
 });
 
