@@ -8,13 +8,6 @@ class Order {
     this.date = date;
   }
   get readableDate () {
-    // return this.date.toLocaleString('en-En', {
-    //   year: 'numeric',
-    //   month: 'long',
-    //   day: 'numeric',
-    //   hour: '2-digit',
-    //   minute: '2-digit',
-    // })
     return moment(this.date).format('MMMM Do YYYY, hh:mm')
   }
 }
