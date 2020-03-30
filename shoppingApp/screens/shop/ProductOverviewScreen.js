@@ -37,13 +37,25 @@ const ProductOverviewScreen = ({ navigation, }) => {
 
 ProductOverviewScreen.navigationOptions = (navData) => ({
   headerTitle: 'All Products',
-  headerRight: (<HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-    <Item 
-      title='Cart' 
-      iconName={Platform.OS !== 'ios' ?  'md-cart' : 'ios-cart'}
-      onPress={()=> {navData.navigation.navigate('Cart')}}
-    />
-  </HeaderButtons>),
+  headerRight: (
+    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+      <Item 
+        title='Cart' 
+        iconName={Platform.OS !== 'ios' ?  'ios-cart' : 'md-cart' }
+        onPress={()=> {navData.navigation.navigate('Cart')}}
+      />
+    </HeaderButtons>
+  ),
+  headerLeft: (
+    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+      <Item 
+        title='Menu' 
+        iconName={Platform.OS !== 'ios' ?  'ios-menu' : 'md-menu'}
+        onPress={()=> {navData.navigation.toggleDrawer()}}
+      />
+    </HeaderButtons>
+  ),
+
 
 });
 

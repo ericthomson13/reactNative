@@ -6,6 +6,8 @@ import CartItem from '../../components/shop/CartItem';
 
 import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/cart';
+import * as orderActions from '../../store/actions/order';
+import order from '../../store/reducers/order';
 
 const CartScreen = (props) => {
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
@@ -28,7 +30,14 @@ const CartScreen = (props) => {
     <View style={styles.screen}>
       <View style={styles.summary}>
         <Text style={styles.summaryText}>Total: <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text></Text>
-        <Button title="Order Now" color={Colors.accent} onPress={() => {}} disabled={cartItems.length === 0 ? true : false}/>
+        <Button
+          title="Order Now"
+          color={Colors.accent}
+          onPress={() => {
+            dispatch(orderActions.addOrder(cartItems, cartTotalAmount))
+          }}
+          disabled={cartItems.length === 0 ? true : false}
+        />
       </View>
       <FlatList 
         data={cartItems} 
@@ -48,6 +57,9 @@ const CartScreen = (props) => {
   );
 };
 
+CartScreen.navigationOptions = {
+  headerTitle: 'Your Cart',
+}
 const styles = StyleSheet.create({
   screen: {
     margin: 20,
