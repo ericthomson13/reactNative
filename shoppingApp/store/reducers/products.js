@@ -1,6 +1,6 @@
 import PRODUCTS from '../../data/dummy-data';
-import { DELETE_PRODUCT } from '../actions/products';
-
+import { DELETE_PRODUCT, CREATE_PRODUCT, UPDATE_PRODUCT, } from '../actions/products';
+import Product from '../../models/product';
 
 const initialState = {
   availableProducts: PRODUCTS,
@@ -15,6 +15,40 @@ const productsReducer = (state = initialState, { type, payload, }) => {
         userProducts: state.userProducts.filter((product) => product.id !== payload),
         availableProducts: state.userProducts.filter((product) => product.id !== payload),
       }
+    case CREATE_PRODUCT:
+      const newProduct = new Product(
+        new Date().toString(),
+        'u1',
+        payload.title,
+        payload.imageUrl,
+        payload.description,
+        payload.price
+      );
+      return {
+        ...state,
+        availableProducts: state.availableProducts.concat(newProduct),
+        userProducts: state.userProducts.concat(newProduct),
+      };
+    case UPDATE_PRODUCT:
+      const productIndex = state.userProducts.findIndex((prod) => prod.id === payload.id);
+      const updatedProduct = new Product(
+        payload.id,
+        state.userProducts[productIndex].ownerId,
+        payload.title,
+        payload.imageUrl,
+        payload.description,
+        state.userProducts[productIndex].price
+      );
+      const updatedUserProducts = [...state.userProducts];
+      updatedUserProducts[productIndex] = updatedProduct;
+      const availableProductIndex = state.availableProducts.findIndex((prod) => prod.id === payload.id);
+      const updatedAvailableProducts = [...state.availableProducts];
+      updatedAvailableProducts[availableProductIndex] = updatedProduct;
+      return {
+        ...state,
+        userProducts: updatedUserProducts,
+        availableProducts: updatedAvailableProducts,
+      };
     default: 
       return state;
   }
