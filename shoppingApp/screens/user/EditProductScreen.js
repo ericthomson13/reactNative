@@ -17,16 +17,18 @@ const EditProductScreen = ({ navigation, }) => {
 
   const dispatch = useDispatch();
 
+
   const submitHandler = useCallback(() => {
     if (editedProduct) {
       dispatch(productActions.updateProduct(prodId, title, description, imageUrl));
     } else {
       dispatch(productActions.createProduct(title, description, imageUrl, +price));
     }
+    navigation.goBack();
   }, [dispatch, prodId, title, imageUrl, price, description]);
 
   useEffect(() => {
-    navigation.setParams({ submit: submitHandler})
+    navigation.setParams({ submit: submitHandler});
   }, [submitHandler]);
 
   return (
