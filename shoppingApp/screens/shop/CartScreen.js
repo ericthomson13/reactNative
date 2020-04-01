@@ -3,6 +3,7 @@ import { View, Text, FlatList, Button, StyleSheet, } from 'react-native';
 import { useSelector, useDispatch, } from 'react-redux';
 
 import CartItem from '../../components/shop/CartItem';
+import Card from '../../components/UI/Card';
 
 import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/cart';
@@ -28,7 +29,7 @@ const CartScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.summary}>
+      <Card style={styles.summary}>
         <Text style={styles.summaryText}>Total: 
           <Text style={styles.amount}>${ Math.round(cartTotalAmount.toFixed(2) * 100) / 100}</Text>
         </Text>
@@ -40,7 +41,7 @@ const CartScreen = (props) => {
           }}
           disabled={cartItems.length === 0 ? true : false}
         />
-      </View>
+      </Card>
       <FlatList 
         data={cartItems} 
         keyExtractor={(item) => item.productId} 
@@ -73,16 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
     padding: 10,
-    shadowColor: 'black',
-    shadowOpacity: 0.26,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: 'white',
   },
   summaryText: {
     fontFamily: 'open-sans-bold',
