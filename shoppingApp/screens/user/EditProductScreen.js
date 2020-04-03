@@ -36,21 +36,48 @@ const EditProductScreen = ({ navigation, }) => {
       <View style={styles.form}>
         <View style={styles.formControl}>
           <Text style={styles.label}>Title</Text>
-          <TextInput style={styles.input} value={title} onChangeText={(text) => setTitle(text)} />
+          <TextInput
+            style={styles.input}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+            keyboardType='default'
+            autoCapitalize='words'
+            autoCorrect
+            returnKeyType='next'
+          />
         </View>
         <View style={styles.formControl}>
           <Text style={styles.label}>Image URL</Text>
-          <TextInput style={styles.input} value={imageUrl} onChangeText={(text) => setImageUrl(text)}/>
+          <TextInput
+            style={styles.input}
+            value={imageUrl}
+            onChangeText={(text) => setImageUrl(text)}
+            keyboardType='url'
+            returnKeyType='next'
+          />
         </View>
 
        {editedProduct ? null : (<View style={styles.formControl}>
           <Text style={styles.label}>Price</Text>
-          <TextInput style={styles.input} value={price} onChangeText={(text) => setPrice(text)}/>
+          <TextInput
+            style={styles.input}
+            value={price}
+            onChangeText={(text) => setPrice(text)}
+            keyboardType='decimal-pad'
+            returnKeyType='next'
+          />
         </View>)
         }
         <View style={styles.formControl}>
           <Text style={styles.label}>Description</Text>
-          <TextInput style={styles.input} value={description} onChangeText={(text) => setDescription(text)}/>
+          <TextInput
+            style={styles.input}
+            value={description}
+            onChangeText={(text) => setDescription(text)}
+            autoCorrect
+            returnKeyType='default'
+            autoCapitalize='sentences'
+          />
         </View>
       </View>
     </ScrollView>

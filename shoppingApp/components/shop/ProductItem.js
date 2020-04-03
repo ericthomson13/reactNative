@@ -23,7 +23,7 @@ const ProductItem = ({
     TouchableCmp = TouchableNativeFeedback;
   }
   return (
-      <Card style={styles.product}>
+      <View style={styles.product}>
         <View style={styles.touchable}>
           <TouchableCmp onPress={onSelect} useForeground>
             <View style={styles.imageContainer}>
@@ -38,7 +38,7 @@ const ProductItem = ({
             </View>
           </TouchableCmp>
         </View>
-      </Card> 
+      </View> 
   );
 };
 
