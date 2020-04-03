@@ -1,35 +1,65 @@
-import React, { useState, useEffect, useCallback, } from 'react';
-import { View, Text, StyleSheet, TextInput, ScrollView, Platform, } from 'react-native';
+import React, { useEffect, useCallback, useReducer, } from 'react';
+import { View, Text, StyleSheet, TextInput, ScrollView, Platform, Alert, } from 'react-native';
 import { HeaderButtons, Item, } from 'react-navigation-header-buttons';
 import { useSelector, useDispatch, } from 'react-redux';
 
 import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
 import * as productActions from '../../store/actions/products';
 
+const formReducer = (state, action) => {
+  if (action.type === 'FORM_UPDATE') {
+
+  }
+};
+
 const EditProductScreen = ({ navigation, }) => {
   const prodId = navigation.getParam('productId');
   const editedProduct = useSelector((state) => state.products.userProducts.find((prod) => prod.id === prodId));
 
-  const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
-  const [imageUrl, setImageUrl] = useState(editedProduct ? editedProduct.imageUrl : '');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState(editedProduct ? editedProduct.description : '');
+  const [formState, dispatchFormState] = useReducer(formReducer, { 
+    inputValues: {
+      title: editedProduct ? editedProduct.title : '',
+      imageUrl: editedProduct ? editedProduct.imageUrl : '',
+      description: editedProduct ? editedProduct.description : '',
+      price: '',
+    }, 
+    inputValidity: {
+      title: editedProduct ? true : false,
+      imageUrl: editedProduct ? true : false,
+      description: editedProduct ? true : false,
+      price: editedProduct ? true : false,
+    }, 
+    formIsValid: editedProduct ? true : false, 
+  });
 
   const dispatch = useDispatch();
 
+  // TODO: Add Validate.js use for validation
 
   const submitHandler = useCallback(() => {
+    if(!titleValid) {
+      Alert.alert('Invalid Title Input', 'Please update before submitting', [{ text: 'Ok' }]);
+      return;
+    };
     if (editedProduct) {
       dispatch(productActions.updateProduct(prodId, title, description, imageUrl));
     } else {
       dispatch(productActions.createProduct(title, description, imageUrl, +price));
     }
     navigation.goBack();
-  }, [dispatch, prodId, title, imageUrl, price, description]);
+  }, [dispatch, prodId, title, imageUrl, price, description, titleValid]);
 
   useEffect(() => {
     navigation.setParams({ submit: submitHandler});
   }, [submitHandler]);
+
+  const textChangeHandler = (text, input) => {
+    let isValid = false;
+    if (text.trim().length > 0) {
+      isValid = true;
+    }
+    dispatchFormState({ type: 'FORM_UPDATE', value: text, isValid, input });
+  }
 
   return (
     <ScrollView>
@@ -39,19 +69,20 @@ const EditProductScreen = ({ navigation, }) => {
           <TextInput
             style={styles.input}
             value={title}
-            onChangeText={(text) => setTitle(text)}
+            onChangeText={(text) => textChangeHandler(text, 'title')}
             keyboardType='default'
             autoCapitalize='words'
             autoCorrect
             returnKeyType='next'
           />
+          {!titleValid && <Text>Please Enter a Valid Title</Text>}
         </View>
         <View style={styles.formControl}>
           <Text style={styles.label}>Image URL</Text>
           <TextInput
             style={styles.input}
             value={imageUrl}
-            onChangeText={(text) => setImageUrl(text)}
+            onChangeText={(text) => textChangeHandler(text, 'imageUrl')}
             keyboardType='url'
             returnKeyType='next'
           />
@@ -62,7 +93,7 @@ const EditProductScreen = ({ navigation, }) => {
           <TextInput
             style={styles.input}
             value={price}
-            onChangeText={(text) => setPrice(text)}
+            onChangeText={(text) => textChangeHandler(text, 'price')}
             keyboardType='decimal-pad'
             returnKeyType='next'
           />
@@ -73,7 +104,7 @@ const EditProductScreen = ({ navigation, }) => {
           <TextInput
             style={styles.input}
             value={description}
-            onChangeText={(text) => setDescription(text)}
+            onChangeText={(text) => textChangeHandler(text, 'description')}
             autoCorrect
             returnKeyType='default'
             autoCapitalize='sentences'
