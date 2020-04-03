@@ -85,50 +85,63 @@ const EditProductScreen = ({ navigation, }) => {
     navigation.setParams({ submit: submitHandler});
   }, [submitHandler]);
 
-  const textChangeHandler = (text, input) => {
-    let isValid = false;
-    if (text.trim().length > 0) {
-      isValid = true;
-    }
-    dispatchFormState({ type: 'FORM_UPDATE', value: text, isValid, input });
-  }
+  const inputChangeHandler = useCallback((identifier, value, isValid) => {
+    dispatchFormState({ type: 'FORM_UPDATE', value, isValid, input: identifier });
+  }, [dispatchFormState]);
 
   return (
     <ScrollView>
       <View style={styles.form}>
         <Input 
-          keyboardType='default'
+          id='title'
           autoCapitalize='words'
           autoCorrect
           returnKeyType='next'
           label='title'
           errorText='Please enter a valid title'
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.title : ''}
+          initiallyValid={!!editedProduct}
+          required
         />
         <Input
-          keyboardType='default'          
+          id='imageUrl'
           returnKeyType='next'
           label='Image Url'
           errorText='Please enter a valid Image Url'
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.imageUrl : ''}
+          initiallyValid={!!editedProduct}
+          required
         />
 
         {editedProduct ? null : (
           <Input
+            id='title'
             label='Price'
             errorText='Please enter a valid Price'
             keyboardType='decimal-pad'
             returnType='next'
+            onInputChange={inputChangeHandler}
+            required
+            min={0.1}
           />
         )
         }
         <Input 
-          keyboardType='default'
+          id='description'
           autoCapitalize='words'
           autoCorrect
-          label='title'
-          errorText='Please enter a valid title'
+          label='description'
+          errorText='Please enter a valid description'
           multiline
           autoCapitalize='sentences'
           numberOfLines={3}
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.description : ''}
+          initiallyValid={!!editedProduct}
+          required
+          minLength={5}
         />
       </View>
     </ScrollView>
