@@ -8,8 +8,28 @@ import * as productActions from '../../store/actions/products';
 
 const formReducer = (state, action) => {
   if (action.type === 'FORM_UPDATE') {
-
+    const updatedValues = {
+      ...state.inputValues,
+      [action.input]: action.value,
+    }
+    const updatedValidities = {
+      ...state.inputValidity,
+      [action.input]: action.isValid,
+    }
+    let formIsValid = true;
+    for (let key in updatedValidities) {
+      if (!updatedValidities[key]) {
+        formIsValid = false;
+      }
+    }
+    return {
+      ...state,
+      inputValues: updatedValues,
+      inputValidity: updatedValidities,
+      formIsValid,
+    }
   }
+  return state;
 };
 
 const EditProductScreen = ({ navigation, }) => {
