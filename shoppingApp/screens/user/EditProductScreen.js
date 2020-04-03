@@ -6,6 +6,8 @@ import { useSelector, useDispatch, } from 'react-redux';
 import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
 import * as productActions from '../../store/actions/products';
 
+// TODO: Add Validate.js use for validation
+
 const formReducer = (state, action) => {
   if (action.type === 'FORM_UPDATE') {
     const updatedValues = {
@@ -54,20 +56,29 @@ const EditProductScreen = ({ navigation, }) => {
 
   const dispatch = useDispatch();
 
-  // TODO: Add Validate.js use for validation
 
   const submitHandler = useCallback(() => {
-    if(!titleValid) {
-      Alert.alert('Invalid Title Input', 'Please update before submitting', [{ text: 'Ok' }]);
+    if(!formState.formIsValid) {
+      Alert.alert('Invalid Input', 'Please update before submitting', [{ text: 'Ok' }]);
       return;
     };
     if (editedProduct) {
-      dispatch(productActions.updateProduct(prodId, title, description, imageUrl));
+      dispatch(productActions.updateProduct(
+        prodId,
+        formState.inputValues.title,
+        formState.inputValues.description,
+        formState.inputValues.imageUrl
+      ));
     } else {
-      dispatch(productActions.createProduct(title, description, imageUrl, +price));
+      dispatch(productActions.createProduct(
+        formState.inputValues.title,
+        formState.inputValues.description,
+        formState.inputValues.imageUrl,
+        +formState.inputValues.price
+      ));
     }
     navigation.goBack();
-  }, [dispatch, prodId, title, imageUrl, price, description, titleValid]);
+  }, [dispatch, formState]);
 
   useEffect(() => {
     navigation.setParams({ submit: submitHandler});
@@ -88,20 +99,20 @@ const EditProductScreen = ({ navigation, }) => {
           <Text style={styles.label}>Title</Text>
           <TextInput
             style={styles.input}
-            value={title}
+            value={formState.inputValues.title}
             onChangeText={(text) => textChangeHandler(text, 'title')}
             keyboardType='default'
             autoCapitalize='words'
             autoCorrect
             returnKeyType='next'
           />
-          {!titleValid && <Text>Please Enter a Valid Title</Text>}
+          {!formState.inputValidities.title && <Text>Please Enter a Valid Title</Text>}
         </View>
         <View style={styles.formControl}>
           <Text style={styles.label}>Image URL</Text>
           <TextInput
             style={styles.input}
-            value={imageUrl}
+            value={formState.inputValues.imageUrl}
             onChangeText={(text) => textChangeHandler(text, 'imageUrl')}
             keyboardType='url'
             returnKeyType='next'
@@ -112,7 +123,7 @@ const EditProductScreen = ({ navigation, }) => {
           <Text style={styles.label}>Price</Text>
           <TextInput
             style={styles.input}
-            value={price}
+            value={formState.inputValues.price}
             onChangeText={(text) => textChangeHandler(text, 'price')}
             keyboardType='decimal-pad'
             returnKeyType='next'
@@ -123,7 +134,7 @@ const EditProductScreen = ({ navigation, }) => {
           <Text style={styles.label}>Description</Text>
           <TextInput
             style={styles.input}
-            value={description}
+            value={formState.inputValues.description}
             onChangeText={(text) => textChangeHandler(text, 'description')}
             autoCorrect
             returnKeyType='default'
