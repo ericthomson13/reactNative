@@ -32,11 +32,26 @@ export const fetchProducts = () => {
       throw err;
     }
   }
-}
-export const deleteProduct = (productId) =>({
-  type: DELETE_PRODUCT,
-  payload: productId,
-});
+};
+
+export const deleteProduct = (productId) =>{
+  return async (dispatch) => {
+    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products/${id}.json`, 
+      {
+        method: 'DELETE',
+      },
+    );
+    
+    if (res.ok) {
+      throw new Error('Unable to Update Product');
+    }
+    
+    return dispatch({
+      type: DELETE_PRODUCT,
+      payload: productId,
+    });
+  };
+};
 
 export const createProduct = (title, description, imageUrl, price) => {
   return async (dispatch) =>{
@@ -83,7 +98,9 @@ export const updateProduct = (id, title, description, imageUrl) => {
       }),
     });
 
-    const resData = await res.json();
+    if (res.ok) {
+      throw new Error('Unable to Update Product');
+    }
 
     return dispatch({ 
       type: UPDATE_PRODUCT,
