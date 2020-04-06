@@ -52,7 +52,7 @@ export const createProduct = (title, description, imageUrl, price) => {
         price,
       }),
     });
-    console.log('here');
+
     const resData = await res.json();
 
     dispatch({
@@ -68,13 +68,31 @@ export const createProduct = (title, description, imageUrl, price) => {
   }
 };
 
-export const updateProduct = (id, title, description, imageUrl) => ({
-  type: UPDATE_PRODUCT,
-  payload: {
-    id,
-    title,
-    description,
-    imageUrl,
-  }
-});
+export const updateProduct = (id, title, description, imageUrl) => {
+ 
+  return async (dispatch) => { 
+    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products/${id}.json`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        imageUrl,
+      }),
+    });
 
+    const resData = await res.json();
+
+    return dispatch({ 
+      type: UPDATE_PRODUCT,
+      payload: {
+        id,
+        title,
+        description,
+        imageUrl,
+      }
+    });
+  };
+};
