@@ -108,7 +108,6 @@ const EditProductScreen = ({ navigation, }) => {
             id='title'
             autoCapitalize='words'
             autoCorrect
-            returnKeyType='next'
             label='title'
             errorText='Please enter a valid title'
             onInputChange={inputChangeHandler}
@@ -118,7 +117,6 @@ const EditProductScreen = ({ navigation, }) => {
           />
           <Input
             id='imageUrl'
-            returnKeyType='next'
             label='Image Url'
             errorText='Please enter a valid Image Url'
             onInputChange={inputChangeHandler}
@@ -129,11 +127,10 @@ const EditProductScreen = ({ navigation, }) => {
 
           {editedProduct ? null : (
             <Input
-              id='title'
+              id='price'
               label='Price'
               errorText='Please enter a valid Price'
-              keyboardType='decimal-pad'
-              returnType='next'
+              keyboardType='number-pad'
               onInputChange={inputChangeHandler}
               required
               min={0.1}
@@ -170,7 +167,7 @@ EditProductScreen.navigationOptions = (navData) => {
         <Item 
           title='Add' 
           iconName={Platform.OS !== 'ios' ?  'ios-checkmark' : 'md-checkmark'}
-          onPress={()=> {submitFn}}
+          onPress={submitFn}
         />
       </HeaderButtons>
     ),
