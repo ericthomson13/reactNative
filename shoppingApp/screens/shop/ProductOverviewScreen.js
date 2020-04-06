@@ -1,5 +1,13 @@
-import React, { useEffect, useState, } from 'react';
-import { FlatList, Platform, Button, ActivityIndicator, StyleSheet, View, Text, } from 'react-native';
+import React, { useEffect, useState, useCallback, } from 'react';
+import {
+  FlatList,
+  Platform,
+  Button,
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
 import { useSelector, useDispatch, } from 'react-redux';
 import { HeaderButtons, Item, } from 'react-navigation-header-buttons';
 
@@ -17,18 +25,27 @@ const ProductOverviewScreen = ({ navigation, }) => {
   const products = useSelector((state) => state.products.availableProducts);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true);
-      try {
-        await dispatch(productActions.fetchProducts());
-      } catch (err) {
-        setError(err.message);
-      }
-      setIsLoading(false);
+  const loadProducts = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(productActions.fetchProducts());
+    } catch (err) {
+      setError(err.message);
     }
+    setIsLoading(false);
+  }, [dispatch, setIsLoading, setError]);
+
+  useEffect(() => {
+    const willFocusSub = navigation.addListener('willFocus', loadProducts);
+    return () => {
+      willFocusSub.remove();
+    }
+  }, [loadProducts]);
+
+  useEffect(() => {
     loadProducts();
-  }, [dispatch]);
+  }, [dispatch, loadProducts]);
 
   const selectItemHandler = (id, title) => {
     navigation.navigate('ProductDetails', { 
@@ -40,6 +57,7 @@ const ProductOverviewScreen = ({ navigation, }) => {
   if (error) {
     <View style={styles.centered} >
       <Text>An Error Occurred with Looading Items</Text>
+      <Button title='Try Again' onPress={loadProducts} color={Colors.primary} />
     </View>
   }
 
