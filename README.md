@@ -53,4 +53,4 @@ Once the Metro-Bundler has launched you can compile the application for whicheve
 
 4. Shopping App:
     - This app allows you to navigate a small retail store, add and remove items from a shopping cart.
-    - The technologies that were familiarized were handling and validating user input, adding database and http server requests, and user auth.
+    - The technologies that were familiarized were handling and validating user input, building a REST API using Firebase.

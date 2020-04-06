@@ -1,9 +1,10 @@
 import React, { useState, } from 'react';
 import { StyleSheet, } from 'react-native';
-import { combineReducers, createStore, } from 'redux';
+import { combineReducers, createStore, applyMiddleware, } from 'redux';
 import { Provider, } from 'react-redux';
 import { AppLoading, } from 'expo';
 import * as Font from 'expo-font';
+import thunk from 'redux-thunk';
 // below should be removed before deployment ** for dev only ** gets invoked as second arg in createStore
 import { composeWithDevTools, } from 'redux-devtools-extension';
 
@@ -18,7 +19,7 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const fetchFonts = () => {
   Font.loadAsync({

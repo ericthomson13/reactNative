@@ -7,15 +7,20 @@ export const deleteProduct = (productId) =>({
   payload: productId,
 });
 
-export const createProduct = (title, description, imageUrl, price) => ({
-  type: CREATE_PRODUCT,
-  payload: {
-    title,
-    description,
-    imageUrl,
-    price,
+export const createProduct = (title, description, imageUrl, price) => {
+  
+  return (dispatch) =>{
+    dispatch({
+      type: CREATE_PRODUCT,
+      payload: {
+        title,
+        description,
+        imageUrl,
+        price,
+      }
+    });
   }
-});
+};
 
 export const updateProduct = (id, title, description, imageUrl) => ({
   type: UPDATE_PRODUCT,
