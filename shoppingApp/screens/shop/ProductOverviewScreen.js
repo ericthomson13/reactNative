@@ -1,5 +1,5 @@
-import React, { useEffect, } from 'react';
-import { FlatList, Platform, Button } from 'react-native';
+import React, { useEffect, useState, } from 'react';
+import { FlatList, Platform, Button, ActivityIndicator, StyleSheet, View, Text, } from 'react-native';
 import { useSelector, useDispatch, } from 'react-redux';
 import { HeaderButtons, Item, } from 'react-navigation-header-buttons';
 
@@ -12,11 +12,22 @@ import * as productActions from '../../store/actions/products';
 import Colors from '../../constants/Colors';
 
 const ProductOverviewScreen = ({ navigation, }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const products = useSelector((state) => state.products.availableProducts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(productActions.fetchProducts())
+    const loadProducts = async () => {
+      setIsLoading(true);
+      try {
+        await dispatch(productActions.fetchProducts());
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoading(false);
+    }
+    loadProducts();
   }, [dispatch]);
 
   const selectItemHandler = (id, title) => {
@@ -25,6 +36,26 @@ const ProductOverviewScreen = ({ navigation, }) => {
       productTitle: title,
     });
   };
+
+  if (error) {
+    <View style={styles.centered} >
+      <Text>An Error Occurred with Looading Items</Text>
+    </View>
+  }
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size='large' color={Colors.primary} />
+      </View>
+    )
+  }
+
+  if (!isLoading && products == 0) {
+    <View style={styles.centered}>
+      <Text>No Products Found Please Add Some</Text>
+    </View>
+  }
 
   return (
     <FlatList 
@@ -69,8 +100,14 @@ ProductOverviewScreen.navigationOptions = (navData) => ({
       />
     </HeaderButtons>
   ),
-
-
 });
+
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 
 export default ProductOverviewScreen;
