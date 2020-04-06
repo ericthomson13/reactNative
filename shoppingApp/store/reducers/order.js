@@ -1,4 +1,4 @@
-import { ADD_ORDER } from '../actions/order';
+import { ADD_ORDER, SET_ORDERS, } from '../actions/order';
 import Order from '../../models/order';
 
 const initialState = {
@@ -7,8 +7,12 @@ const initialState = {
 
 const ordersReducer =  (state = initialState, { type, payload }) => {
   switch (type) {
+    case SET_ORDERS:
+      return {
+        orders: payload,
+      }
     case ADD_ORDER: 
-      const newOrder = new Order(new Date().toString(), payload.items, payload.amount, new Date());
+      const newOrder = new Order(payload.id, payload.items, payload.amount, payload.date);
       return {
         ...state,
         orders: state.orders.concat(newOrder),
