@@ -8,9 +8,9 @@ import Colors from '../../constants/Colors';
 const CustomHeaderButton = (props) => {
 
   return (
-    <HeaderButton 
-      {...props} 
-      IconComponent={Ionicons} 
+    <HeaderButton
+      {...props}
+      IconComponent={Ionicons}
       iconSize={23}
       color={Platform.OS !== 'ios' ? 'white' : Colors.primary}
     />
