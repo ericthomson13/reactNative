@@ -15,7 +15,7 @@ import OrderItem from '../../components/shop/OrderItem';
 import * as orderActions from '../../store/actions/order';
 import Colors from '../../constants/Colors';
 
-const OrdersScreen = (props) => {
+const OrdersScreen = ({ navigation, }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -66,13 +66,13 @@ const OrdersScreen = (props) => {
   }
 
   return (
-    <FlatList 
+    <FlatList
       onRefresh={loadOrders}
       refreshing={isRefreshing}
-      data={orders} 
+      data={orders}
       renderItem={(itemData) => (
-        <OrderItem 
-          amount={itemData.item.totalAmount} 
+        <OrderItem
+          amount={itemData.item.totalAmount}
           date={itemData.item.readableDate}
           items={itemData.item.items}
         />
@@ -85,8 +85,8 @@ OrdersScreen.navigationOptions = (navData) => ({
   headerTitle: 'Your Order',
   headerLeft: (
     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-      <Item 
-        title='Menu' 
+      <Item
+        title='Menu'
         iconName={Platform.OS !== 'ios' ?  'ios-menu' : 'md-menu'}
         onPress={()=> {navData.navigation.toggleDrawer()}}
       />
