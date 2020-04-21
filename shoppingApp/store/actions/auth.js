@@ -1,7 +1,15 @@
 import { firebaseKey, } from '../../secrets';
+import { AsyncStorage, } from 'react-native';
 
-export const SIGN_UP = 'SIGN_UP';
-export const LOGIN = 'LOGIN';
+export const AUTHENTICATE = 'AUTHENTICATE';
+
+export const authenticate = (userId, token) => {
+  return {
+    type: AUTHENTICATE,
+    userId,
+    token,
+  }
+};
 
 export const signUp = (email, password) => {
   return async (dispatch) => {
@@ -29,8 +37,9 @@ export const signUp = (email, password) => {
       throw new Error (message);
     };
     const resData = await res.json();
-    console.log(resData);
-    dispatch({ type: SIGN_UP, token: resData.idToken, userId: resData.localId });
+    dispatch(authenticate(resData.idToken, resData.localId));
+    const expirationDate = new Date( new Date().getTime() + parseInt(resData.expiresIn) * 1000);
+    saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
 };
 
@@ -62,6 +71,16 @@ export const login = (email, password) => {
 
     const resData = await res.json();
 
-    dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId, });
+    dispatch(authenticate(resData.idToken, resData.localId));
+    const expirationDate = new Date( new Date().getTime() + parseInt(resData.expiresIn) * 1000);
+    saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
+};
+
+const saveDataToStorage = (token, userId, expirationDate) => {
+  AsyncStorage.setItem('userData', JSON.stringify({
+    token,
+    userId,
+    expirationDate: expirationDate.toISOString(),
+  }));
 };
