@@ -30,7 +30,7 @@ export const signUp = (email, password) => {
     };
     const resData = await res.json();
     console.log(resData);
-    dispatch({ type: SIGN_UP, })
+    dispatch({ type: SIGN_UP, token: resData.idToken, userId: resData.localId });
   };
 };
 
@@ -62,6 +62,6 @@ export const login = (email, password) => {
 
     const resData = await res.json();
 
-    dispatch({ type: LOGIN, });
+    dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId, });
   };
 };
