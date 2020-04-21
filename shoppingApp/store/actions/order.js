@@ -4,10 +4,12 @@ export const ADD_ORDER = 'ADD_ORDER';
 export const SET_ORDERS = 'SET_ORDERS';
 
 export const fetchOrders = () => {
-    
-  return async (dispatch) => {
+
+  return async (dispatch, getState) => {
+    const { userId, } = getState().auth;
+
     try {
-      const res = await fetch('https://rn-shopping-app-a9d2d.firebaseio.com/orders/u1.json');
+      const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/orders/${userId}.json`);
 
       if (!res.ok) {
         throw new Error('Something went wrong with getting orders');
@@ -18,7 +20,7 @@ export const fetchOrders = () => {
 
       for (let key in resData) {
         loadedOrders.push(new Order(
-          key, 
+          key,
           resData[key].cartItems,
           resData[key].totalAmount,
           new Date(resData[key].date)
@@ -37,9 +39,11 @@ export const fetchOrders = () => {
 
 
 export const addOrder = (cartItems, totalAmount) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const { token, userId, } = getState().auth;
+
     const date = new Date();
-    const res = await fetch('https://rn-shopping-app-a9d2d.firebaseio.com/orders/u1.json', 
+    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/orders/${userId}.json?auth=${token}`,
     {
       method: 'POST',
       headers: {

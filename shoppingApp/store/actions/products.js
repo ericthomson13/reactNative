@@ -15,11 +15,11 @@ export const fetchProducts = () => {
       const loadedProducts = [];
       for (let key in resData) {
         loadedProducts.push(new Product(
-          key, 
-          'u1', 
-          resData[key].title, 
-          resData[key].imageUrl, 
-          resData[key].description, 
+          key,
+          'u1',
+          resData[key].title,
+          resData[key].imageUrl,
+          resData[key].description,
           resData[key].price
         ));
       }
@@ -35,17 +35,18 @@ export const fetchProducts = () => {
 };
 
 export const deleteProduct = (productId) =>{
-  return async (dispatch) => {
-    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products/${id}.json`, 
+  return async (dispatch, getState) => {
+    const { token } = getState().auth;
+    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products/${id}.json?auth=${token}`,
       {
         method: 'DELETE',
       },
     );
-    
+
     if (res.ok) {
       throw new Error('Unable to Update Product');
     }
-    
+
     return dispatch({
       type: DELETE_PRODUCT,
       payload: productId,
@@ -54,8 +55,10 @@ export const deleteProduct = (productId) =>{
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
-  return async (dispatch) =>{
-    const res = await fetch('https://rn-shopping-app-a9d2d.firebaseio.com/products.json', {
+  return async (dispatch, getState) =>{
+    const { token } = getState().auth;
+
+    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products.json?auth=${token}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,9 +87,11 @@ export const createProduct = (title, description, imageUrl, price) => {
 };
 
 export const updateProduct = (id, title, description, imageUrl) => {
- 
-  return async (dispatch) => { 
-    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products/${id}.json`, {
+
+  return async (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products/${id}.json?auth=${token}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +107,7 @@ export const updateProduct = (id, title, description, imageUrl) => {
       throw new Error('Unable to Update Product');
     }
 
-    return dispatch({ 
+    return dispatch({
       type: UPDATE_PRODUCT,
       payload: {
         id,
