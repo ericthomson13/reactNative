@@ -18,7 +18,15 @@ export const signUp = (email, password) => {
     });
 
     if (!res.ok) {
-      throw new Error('Something Went Wrong');
+      const errorResData = await res.json();
+      const errorId = errorResData.error.message;
+      let message = 'Something Went Wrong';
+
+      if (errorId === 'EMAIL_EXISTS') {
+        message = 'This User Already Exists';
+      }
+
+      throw new Error (message);
     };
     const resData = await res.json();
     console.log(resData);
@@ -40,9 +48,17 @@ export const login = (email, password) => {
       })
     });
 
-    if (!res.ok) {
-      throw new Error('Failure to Login');
-    }
+     if (!res.ok) {
+      const errorResData = await res.json();
+      const errorId = errorResData.error.message;
+      let message = 'Something Went Wrong';
+
+      if (errorId === 'EMAIL_NOT_FOUND' || errorId === 'INVALID_PASSWORD') {
+        message = 'Invalid email or password';
+      }
+
+      throw new Error (message);
+    };
 
     const resData = await res.json();
 
