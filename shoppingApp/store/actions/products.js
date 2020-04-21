@@ -5,7 +5,9 @@ export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 export const fetchProducts = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const { userId, } = getState().auth;
+
     try {
       const res = await fetch('https://rn-shopping-app-a9d2d.firebaseio.com/products.json');
       if (!res.ok) {
@@ -26,7 +28,10 @@ export const fetchProducts = () => {
 
       dispatch({
         type: SET_PRODUCTS,
-        payload: loadedProducts,
+        payload: {
+          loadedProducts,
+          userProducts: loadedProducts.filter((prod) => prod.ownerId === userId),
+        },
       });
     } catch (err) {
       throw err;
@@ -56,7 +61,7 @@ export const deleteProduct = (productId) =>{
 
 export const createProduct = (title, description, imageUrl, price) => {
   return async (dispatch, getState) =>{
-    const { token } = getState().auth;
+    const { token, userId, } = getState().auth;
 
     const res = await fetch(`https://rn-shopping-app-a9d2d.firebaseio.com/products.json?auth=${token}`, {
       method: 'POST',
@@ -68,6 +73,7 @@ export const createProduct = (title, description, imageUrl, price) => {
         description,
         imageUrl,
         price,
+        ownerId: userId,
       }),
     });
 
@@ -81,6 +87,7 @@ export const createProduct = (title, description, imageUrl, price) => {
         description,
         imageUrl,
         price,
+        ownerId: userId,
       }
     });
   }

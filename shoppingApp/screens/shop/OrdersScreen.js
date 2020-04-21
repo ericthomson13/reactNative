@@ -65,6 +65,14 @@ const OrdersScreen = ({ navigation, }) => {
     );
   }
 
+  if (!orders.length) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>No Orders Found</Text>
+      </View>
+    )
+  }
+
   return (
     <FlatList
       onRefresh={loadOrders}
