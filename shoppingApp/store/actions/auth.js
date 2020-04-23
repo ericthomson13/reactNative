@@ -2,6 +2,9 @@ import { firebaseKey, } from '../../secrets';
 import { AsyncStorage, } from 'react-native';
 
 export const AUTHENTICATE = 'AUTHENTICATE';
+export const LOGOUT = 'LOGOUT';
+
+let timer;
 
 export const authenticate = (userId, token) => {
   return {
@@ -76,6 +79,28 @@ export const login = (email, password) => {
     saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
 };
+
+export const logout = () => {
+  clearLogoutTimer();
+  AsyncStorage.removeItem('userData');
+
+  return {
+    type: LOGOUT,
+  }
+};
+
+// allows for auto logout when time expires
+const setLogoutTimer = (expirationTime) => {
+  return (dispatch) => {
+    timer = setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime);
+  }
+};
+
+const clearLogoutTimer = () => {
+  if (timer) clearTimeout(timer);
+}
 
 const saveDataToStorage = (token, userId, expirationDate) => {
   AsyncStorage.setItem('userData', JSON.stringify({

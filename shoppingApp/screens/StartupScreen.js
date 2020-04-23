@@ -33,6 +33,7 @@ const StartupScreen = ({ navigation, }) => {
 
     tryLogin();
   }, [dispatch]);
+
   return (
     <View style={styles.screen}>
       <ActivityIndicator size='large' color={Colors.primary} />
