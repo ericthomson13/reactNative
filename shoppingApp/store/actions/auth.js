@@ -6,11 +6,14 @@ export const LOGOUT = 'LOGOUT';
 
 let timer;
 
-export const authenticate = (userId, token) => {
-  return {
-    type: AUTHENTICATE,
-    userId,
-    token,
+export const authenticate = (userId, token, expirationTime) => {
+  return (dispatch) => {
+    dispatch(setLogoutTimer(expirationTime));
+    dispatch({
+      type: AUTHENTICATE,
+      userId,
+      token,
+    });
   }
 };
 
@@ -39,9 +42,13 @@ export const signUp = (email, password) => {
 
       throw new Error (message);
     };
+
     const resData = await res.json();
-    dispatch(authenticate(resData.idToken, resData.localId));
+
+    dispatch(authenticate(resData.idToken, resData.localId, parseInt(resData.expiresIn) * 1000));
+
     const expirationDate = new Date( new Date().getTime() + parseInt(resData.expiresIn) * 1000);
+
     saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
 };
@@ -74,7 +81,8 @@ export const login = (email, password) => {
 
     const resData = await res.json();
 
-    dispatch(authenticate(resData.idToken, resData.localId));
+    dispatch(authenticate(resData.idToken, resData.localId, parseInt(resData.expiresIn) * 1000));
+
     const expirationDate = new Date( new Date().getTime() + parseInt(resData.expiresIn) * 1000);
     saveDataToStorage(resData.idToken, resData.localId, expirationDate);
   };
